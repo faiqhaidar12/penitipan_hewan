@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('pelanggan', function (Blueprint $table) {
-            $table->string('telepon')->change();
+            $table->string('foto')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('pelanggan', function (Blueprint $table) {
-            $table->dropColumn('telepon');
+            $table->dropColumn('foto');
         });
     }
 };

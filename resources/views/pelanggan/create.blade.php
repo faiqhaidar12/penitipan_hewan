@@ -2,7 +2,7 @@
 @section('title', 'Tambah Data Pelanggan')
 @section('content')
     <div class="col-md-6">
-        <form method="POST" action="/pelanggan">
+        <form method="POST" action="/pelanggan" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="form-group">
@@ -21,8 +21,12 @@
                         value="{{ Session::get('telepon') }}" placeholder="Masukan Telepon Pelanggan">
                 </div>
                 <div class="form-group">
-                    <label>Alamat</label>
+                    <label for="alamat">Alamat</label>
                     <textarea class="form-control" rows="3" name="alamat" placeholder="Masukan Alamat..">{{ Session::get('alamat') }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="foto">Foto</label>
+                    <input type="file" name="foto" id="foto" class="form-control">
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary">Simpan</button>

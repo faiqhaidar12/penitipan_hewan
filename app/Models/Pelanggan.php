@@ -13,6 +13,7 @@ class Pelanggan extends Model
         'nama_pelanggan',
         'alamat',
         'telepon',
-        'email'
+        'email',
+        'foto',
     ];
 }
