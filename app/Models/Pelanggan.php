@@ -16,4 +16,9 @@ class Pelanggan extends Model
         'email',
         'foto',
     ];
+
+    public function hewan()
+    {
+        return $this->hasMany(Hewan::class);
+    }
 }

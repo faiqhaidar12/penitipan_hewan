@@ -160,6 +160,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/hewan') }}" class="nav-link">
+                                <i class="nav-icon fas fa-dog"></i>
+                                <p>
+                                    Hewan
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
