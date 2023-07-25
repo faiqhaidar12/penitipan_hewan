@@ -16,7 +16,7 @@ class HewanController extends Controller
      */
     public function index()
     {
-        $data = Hewan::latest()->orderBy('nama_hewan', 'asc')->paginate(6);
+        $data = Hewan::latest()->orderBy('nama_hewan', 'asc')->paginate(5);
         return view('hewan.index')->with('data', $data);
     }
 
@@ -95,7 +95,9 @@ class HewanController extends Controller
      */
     public function edit($id)
     {
-        return view('hewan.edit');
+        $pelanggan_id = Pelanggan::all();
+        $data = Hewan::where('id', $id)->first();
+        return view('hewan.edit')->with('data', $data)->with('pelanggan', $pelanggan_id);
     }
 
     /**
@@ -107,7 +109,33 @@ class HewanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_hewan' => 'required',
+            'jenis_hewan' => 'required',
+            'umur' => 'required|numeric',
+            'berat' => 'required|numeric',
+            'pelanggan_id' => 'required|exists:pelanggan,id'
+        ], [
+            'nama_hewan.required' => 'Nama Hewan Harus diisi!!',
+            'jenis_hewan.required' => 'Jenis Hewan Harus diisi!!',
+            'umur.required' => 'Umur Harus diisi!!',
+            'umur.numeric' => 'Umur Harus diisi Dengan Angka!!',
+            'berat.required' => 'Berat Harus diisi!!',
+            'berat.numeric' => 'Berat Harus diisi Dengan Angka!!',
+            'pelanggan_id.required' => 'Pemilik Harus dipilih!!',
+            'pelanggan_id.exists' => 'Pemilik Harus dipilih!!',
+        ]);
+
+        $data = [
+            'nama_hewan' => $request->input('nama_hewan'),
+            'jenis_hewan' => $request->input('jenis_hewan'),
+            'umur' => $request->input('umur'),
+            'berat' => $request->input('berat'),
+            'pelanggan_id' => $request->input('pelanggan_id')
+        ];
+
+        Hewan::where('id', $id)->update($data);
+        return redirect('/hewan')->with('update', "Berhasil Update Data!!");
     }
 
     /**
@@ -118,6 +146,7 @@ class HewanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Hewan::where('id', $id)->delete();
+        return redirect('/hewan')->with('success', 'Berhasil Hapus Data!!');
     }
 }

@@ -26,25 +26,25 @@
                         <td>{{ $item->berat }} <span class="text-bold">Kg</span></td>
                         <td>{{ $item->pelanggan->nama_pelanggan }}</td>
                         <td>
-                            <a class="btn btn-primary btn-sm" href="#">
-                                <i class="fas fa-folder">
-                                </i>
-                                View
-                            </a>
-                            <a class="btn btn-info btn-sm" href="#">
+                            <a class="btn btn-info btn-sm" href="{{ url('/hewan/' . $item->id . '/edit') }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
                                 Edit
                             </a>
-                            <a class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Delete
-                            </a>
+                            <form onsubmit="return confirm('Apakah Anda Yakin Ingin Hapus Data?')" class="d-inline"
+                                action="{{ url('/hewan/' . $item->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm" type="submit">
+                                    <i class="fas fa-trash">
+                                    </i> Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        {{ $data->links() }}
     </div>
 @endsection

@@ -168,6 +168,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/penitipan') }}" class="nav-link">
+                                <i class="nav-icon fas fa-people-carry"></i>
+                                <p>
+                                    Penitipan
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
