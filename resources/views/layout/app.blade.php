@@ -137,22 +137,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/kontak') }}" class="nav-link">
-                                <i class="nav-icon fas fa-book-open"></i>
-                                <p>
-                                    Kontak
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/tentang') }}" class="nav-link">
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>
-                                    Tentang
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{{ url('/pelanggan') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>

@@ -14,10 +14,31 @@ class PenitipanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Penitipan::latest()->orderBy('id', 'asc')->paginate(10);
-        return view('penitipan.index')->with('data', $data);
+        $keyword = $request->input('keyword');
+
+        if ($keyword) {
+            // Jika ada keyword pencarian
+            $data = Penitipan::select('penitipan.*')
+                ->join('hewan', 'penitipan.hewan_id', '=', 'hewan.id')
+                ->where('hewan.nama_hewan', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('hewan.jenis_hewan', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('hewan.umur', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('hewan.berat', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('penitipan.status', 'LIKE', '%' . $keyword . '%')
+                ->latest()
+                ->orderBy('penitipan.id', 'asc')
+                ->paginate(5);
+        } else {
+            // Jika tidak ada keyword pencarian, tampilkan semua data penitipan
+            $data = Penitipan::latest()->orderBy('id', 'asc')->paginate(10);
+        }
+
+        // Periksa jumlah data yang ditemukan
+        $count = $data->count();
+
+        return view('penitipan.index')->with('data', $data)->with('count', $count)->with('keyword', $keyword);
     }
 
     /**
@@ -115,7 +136,7 @@ class PenitipanController extends Controller
     {
         $request->validate([
             'tgl_masuk' => 'required|date',
-            'tgl_keluar' => 'required|date|after_or_equal:tanggal_masuk',
+            'tgl_keluar' => 'required|date|after_or_equal:tgl_masuk',
             'hewan_id' => [
                 'required',
                 'exists:hewan,id',

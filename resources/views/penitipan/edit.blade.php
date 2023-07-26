@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <label for="hewan_id">Nama Hewan</label>
                     <select name="hewan_id" class="form-control select2" style="width: 250px;">
-                        <option value="{{ $data->id }}" selected="selected">{{ $data->hewan->nama_hewan }}</option>
+                        <option value="{{ $data->hewan->id }}" selected="selected">{{ $data->hewan->nama_hewan }}</option>
                         @foreach ($hewan as $item)
                             <option value="{{ $item->id }}">
                                 {{ $item->nama_hewan }}

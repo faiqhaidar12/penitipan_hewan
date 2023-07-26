@@ -1,8 +1,22 @@
 @extends('layout.app')
 @section('title', 'Pelanggan')
 @section('content')
-
     <a href="/pelanggan/create" class="btn btn-primary mb-2"><i class="fas fa-plus"></i> Tambah Data</a>
+    <div class="float-right">
+        <div class="card-tools">
+            <form action="{{ url('/pelanggan') }}" method="GET">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="keyword" class="form-control float-right" placeholder="Search"
+                        value="{{ request('keyword') }}">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="">
         <div class="pb-0">
             <div class="row">
@@ -48,9 +62,9 @@
                                     <a href="{{ url('/pelanggan/' . $item->id . '/edit') }}" class="btn btn-sm bg-orange">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
-                                    <a href="{{ url('/pelanggan/' . $item->id) }}" class="btn btn-sm btn-primary">
+                                    {{-- <a href="{{ url('/pelanggan/' . $item->id) }}" class="btn btn-sm btn-primary">
                                         <i class="fas fa-user"></i> View Profile
-                                    </a>
+                                    </a> --}}
                                 </div>
                             </div>
                         </div>

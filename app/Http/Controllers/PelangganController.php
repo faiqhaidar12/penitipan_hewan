@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hewan;
 use App\Models\Pelanggan;
+use App\Models\Penitipan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 
 class PelangganController extends Controller
 {
@@ -14,10 +17,17 @@ class PelangganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // $data = Pelanggan::all();
-        $data = Pelanggan::latest()->orderBy('nama_pelanggan', 'asc')->paginate(6);
+        $keyword = $request->input('keyword');
+
+        $data = Pelanggan::where('nama_pelanggan', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('alamat', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('telepon', 'LIKE', '%' . $keyword . '%')
+            ->latest()
+            ->orderBy('nama_pelanggan', 'asc')
+            ->paginate(6);
         return view('pelanggan.index')->with('data', $data);
     }
 
@@ -168,6 +178,11 @@ class PelangganController extends Controller
      */
     public function destroy($id)
     {
+        $dataHewan = Hewan::where('pelanggan_id', $id)->exists();
+        if ($dataHewan) {
+            // Jika ada data hewan yang masih terkait dengan pelanggan, tampilkan pesan kesalahan
+            throw ValidationException::withMessages(['Pelanggan Tidak Dapat dihapus Karena Masih Memiliki Data Hewan Yang Terkait!!']);
+        }
         $data = Pelanggan::where('id', $id)->first();
         File::delete(public_path('foto') . '/' . $data->foto);
 

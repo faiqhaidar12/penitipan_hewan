@@ -2,6 +2,21 @@
 @section('title', 'Hewan')
 @section('content')
     <a href="/hewan/create" class="btn btn-primary mb-2"><i class="fas fa-plus"></i> Tambah Hewan</a>
+    <div class="float-right">
+        <div class="card-tools">
+            <form action="{{ url('/hewan') }}" method="GET">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="keyword" class="form-control float-right" placeholder="Search"
+                        value="{{ request('keyword') }}">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="card-body table-responsive text-center p-0">
         <table class="table table-hover text-nowrap">
             <thead>

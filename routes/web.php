@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HalamanController;
 use App\Http\Controllers\HewanController;
 use App\Http\Controllers\PelangganController;
@@ -22,9 +23,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [HalamanController::class, 'index']);
-Route::get('/kontak', [HalamanController::class, 'kontak']);
-Route::get('/tentang', [HalamanController::class, 'tentang']);
+// Route::get('/', [HalamanController::class, 'index']);
+// Route::get('/kontak', [HalamanController::class, 'kontak']);
+// Route::get('/tentang', [HalamanController::class, 'tentang']);
+
+Route::get('/', [DashboardController::class, 'index'])->middleware('isLogin');
 
 Route::resource('pelanggan', PelangganController::class)->middleware('isLogin');
 Route::resource('hewan', HewanController::class)->middleware('isLogin');

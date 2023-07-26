@@ -22,4 +22,9 @@ class Penitipan extends Model
     {
         return $this->belongsTo(Hewan::class);
     }
+
+    public function pelanggan()
+    {
+        return $this->belongsTo(Pelanggan::class, 'hewan_id', 'pelanggan_id');
+    }
 }
