@@ -143,9 +143,11 @@ class PenitipanController extends Controller
                 function ($attribute, $value, $fail) use ($id) {
                     // Menggunakan closure untuk memeriksa bahwa hewan yang diupdate tidak sedang digunakan di data penitipan lainnya
                     $hewan = Hewan::availableForUpdate($id, $value)->first();
-                    if (!$hewan) {
-                        $fail('Hewan yang dipilih sudah digunakan dalam data penitipan lainnya.');
+                    if (!$hewan || $hewan->id == $id) {
+                        // Tambahkan pengecualian untuk hewan yang sedang diubah statusnya
+                        return;
                     }
+                    $fail('Hewan yang dipilih sudah digunakan dalam data penitipan lainnya.');
                 },
             ],
             'status' => 'required'
